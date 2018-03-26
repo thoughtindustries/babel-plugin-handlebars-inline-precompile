@@ -1,7 +1,7 @@
 {
-  "name": "babel-plugin-handlebars-inline-precompile",
+  "name": "@roundingwellos/babel-plugin-handlebars-inline-precompile",
   "description": "",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "repository": "thejameskyle/babel-plugin-handlebars-inline-precompile",
   "license": "MIT",
   "main": "lib/index.js",
@@ -27,7 +27,9 @@
   ],
   "dependencies": {
     "@babel/helper-module-imports": "^7.0.0-beta.42",
-    "handlebars": "^4.0.5",
     "resolve-cwd": "^1.0.0"
+  },
+  "peerDependencies": {
+    "handlebars": "^4.0.5"
   }
 }
