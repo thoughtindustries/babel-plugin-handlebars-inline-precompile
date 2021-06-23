@@ -1,8 +1,8 @@
 {
-  "name": "@roundingwellos/babel-plugin-handlebars-inline-precompile",
+  "name": "babel-plugin-handlebars-inline-precompile",
   "description": "",
   "version": "3.0.1",
-  "repository": "thejameskyle/babel-plugin-handlebars-inline-precompile",
+  "repository": "thoughtindustries/babel-plugin-handlebars-inline-precompile",
   "license": "MIT",
   "main": "lib/index.js",
   "devDependencies": {

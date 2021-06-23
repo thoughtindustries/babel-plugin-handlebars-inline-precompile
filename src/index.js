@@ -4,7 +4,7 @@ import { addDefault } from "@babel/helper-module-imports"
 // Use local handlebars (if installed as a peer) rather than the version that
 // came with this plugin. Allows a newer handlebars to be used without needing
 // to upgrade this package.
-const Handlebars = require(resolveCwd('handlebars') || 'handlebars')
+const Handlebars = require('ti-ember-templates-loader/ember-template-compiler')
 
 export default function({ types: t }) {
   const IMPORT_NAME = 'handlebars-inline-precompile';
@@ -17,9 +17,9 @@ export default function({ types: t }) {
   }
 
   // Precompile template and replace node.
-  function compile(path, template, importName) {
+  function compile(path, template) {
     let precompiled = Handlebars.precompile(template);
-    path.replaceWithSourceString(`${importName}.template(${precompiled})`);
+    path.replaceWithSourceString(`Ember.Handlebars.template(${precompiled})`);
   }
 
   return {
@@ -44,13 +44,12 @@ export default function({ types: t }) {
           throw path.buildCodeFrameError(`Only \`import hbs from '${IMPORT_NAME}'\` is supported. You used: \`${usedImportStatement}\``);
         }
 
-        const importPath = addDefault(path, 'handlebars/runtime', { nameHint: scope.generateUid('Handlebars') });
+        // const importPath = addDefault(path, 'handlebars/runtime', { nameHint: scope.generateUid('Handlebars') });
         path.remove();
 
         // Store the import name to lookup references elsewhere.
         file[IMPORT_PROP] = {
-          input: first.local.name,
-          output: importPath.name
+          input: first.local.name
         };
       },
 
@@ -76,7 +75,7 @@ export default function({ types: t }) {
           throw path.buildCodeFrameError(`${node.callee.name} should be invoked with a single argument: the template string`);
         }
 
-        compile(path, template, file[IMPORT_PROP].output);
+        compile(path, template);
       },
 
       /**
@@ -98,7 +97,7 @@ export default function({ types: t }) {
 
         let template = node.quasi.quasis.map(quasi => quasi.value.cooked).join('');
 
-        compile(path, template, file[IMPORT_PROP].output);
+        compile(path, template);
       }
     }
   };
