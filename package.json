@@ -30,6 +30,6 @@
     "resolve-cwd": "^1.0.0"
   },
   "peerDependencies": {
-    "handlebars": "^4.0.5"
+    "ti-ember-templates-loader": "*"
   }
 }
